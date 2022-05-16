@@ -349,7 +349,9 @@ macro(ocv_list_filterout lst regex)
   endforeach()
 endmacro()
 
-# We do not actually need REQUIRED_VARS to be checked for. Just use the
-# installation directory for the status.
-find_package_handle_standard_args(OpenCV REQUIRED_VARS OpenCV_INSTALL_PATH
-                                  VERSION_VAR OpenCV_VERSION ${_OpenCV_FPHSA_ARGS})
+find_package(zlib REQUIRED CONFIG)
+find_package(TIFF REQUIRED CONFIG)
+find_package(libjpeg-turbo REQUIRED CONFIG)
+if (@WITH_TBB@)
+    find_package(tbb REQUIRED CONFIG)
+endif()

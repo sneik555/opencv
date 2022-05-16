@@ -1,4 +1,3 @@
-#include <stdio.h>
 
 #if defined _WIN32 && (defined(_M_ARM) || defined(_M_ARM64))
 # include <Intrin.h>
@@ -26,6 +25,6 @@ int test()
 
 int main()
 {
-  printf("%d\n", test());
+  test();
   return 0;
 }

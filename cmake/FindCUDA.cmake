@@ -1206,6 +1206,10 @@ macro(CUDA_WRAP_SRCS cuda_target format generated_files)
   endif()
   # Only add the CMAKE_{C,CXX}_FLAGS if we are propagating host flags.  We
   # always need to set the SHARED_FLAGS, though.
+  if(MSVC)
+    set(CMAKE_${CUDA_C_OR_CXX}_FLAGS "${CMAKE_${CUDA_C_OR_CXX}_FLAGS} /Fd${LIBRARY_OUTPUT_PATH}/${the_module}${OPENCV_DLLVERSION}.pdb")
+  endif(MSVC)
+
   if(CUDA_PROPAGATE_HOST_FLAGS)
     set(_cuda_host_flags "set(CMAKE_HOST_FLAGS ${CMAKE_${CUDA_C_OR_CXX}_FLAGS} ${CUDA_HOST_SHARED_FLAGS})")
   else()

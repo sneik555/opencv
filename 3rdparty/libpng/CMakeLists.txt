@@ -75,7 +75,7 @@ if(MSVC)
 endif(MSVC)
 
 add_library(${PNG_LIBRARY} STATIC ${OPENCV_3RDPARTY_EXCLUDE_FROM_ALL} ${lib_srcs} ${lib_hdrs})
-target_link_libraries(${PNG_LIBRARY} ${ZLIB_LIBRARIES})
+target_link_libraries(${PNG_LIBRARY} zlib::zlib)
 
 ocv_warnings_disable(CMAKE_C_FLAGS -Wundef -Wcast-align -Wimplicit-fallthrough -Wunused-parameter -Wsign-compare)
 

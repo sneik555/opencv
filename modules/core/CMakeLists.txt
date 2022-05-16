@@ -41,7 +41,7 @@ if(WINRT AND WINDOWS_STORE AND CMAKE_SYSTEM_VERSION MATCHES "8.0")
 endif()
 
 if(HAVE_TBB)
-  list(APPEND extra_libs tbb)
+  list(APPEND extra_libs TBB::tbb)
 endif()
 
 if(DEFINED WINRT AND NOT DEFINED ENABLE_WINRT_MODE_NATIVE)
@@ -144,7 +144,7 @@ endif()
 ocv_create_module(${extra_libs})
 
 ocv_target_link_libraries(${the_module} PRIVATE
-    "${ZLIB_LIBRARIES}" "${OPENCL_LIBRARIES}" "${VA_LIBRARIES}"
+    zlib::zlib "${OPENCL_LIBRARIES}" "${VA_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
     "${LAPACK_LIBRARIES}" "${CPUFEATURES_LIBRARIES}" "${HALIDE_LIBRARIES}"
     "${ITT_LIBRARIES}"
@@ -165,6 +165,13 @@ endif(OPENCV_SEMIHOSTING)
 
 if(HAVE_HPX)
   ocv_target_link_libraries(${the_module} LINK_PRIVATE "${HPX_LIBRARIES}")
+endif()
+
+if(APPLE AND HAVE_OPENMP)
+  # OpenMP is probably installed externally, eg. using 'brew install libomp'.
+  # Then, the flags set in OpenCVFindFrameworks.cmake are not enough.
+  # The proper way in CMake 3.12+ is to do this:
+  ocv_target_link_libraries(${the_module} PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
 ocv_add_accuracy_tests()

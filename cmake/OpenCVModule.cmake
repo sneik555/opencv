@@ -1014,16 +1014,6 @@ macro(_ocv_create_module)
     target_compile_definitions(${the_module} PRIVATE CVAPI_EXPORTS)
   endif()
 
-  # For dynamic link numbering conventions
-  if(NOT ANDROID)
-    # Android SDK build scripts can include only .so files into final .apk
-    # As result we should not set version properties for Android
-    set_target_properties(${the_module} PROPERTIES
-      VERSION ${OPENCV_LIBVERSION}
-      SOVERSION ${OPENCV_SOVERSION}
-    )
-  endif()
-
   if (ENABLE_GNU_STL_DEBUG)
     target_compile_definitions(${the_module} PUBLIC _GLIBCXX_DEBUG)
   endif()
@@ -1039,9 +1029,9 @@ macro(_ocv_create_module)
   if(OPENCV_MODULE_${the_module}_CLASS STREQUAL "PUBLIC" AND
       ("${_target_type}" STREQUAL "SHARED_LIBRARY" OR (NOT BUILD_SHARED_LIBS OR NOT INSTALL_CREATE_DISTRIB)))
     ocv_install_target(${the_module} EXPORT OpenCVModules OPTIONAL
-      RUNTIME DESTINATION ${OPENCV_BIN_INSTALL_PATH} COMPONENT libs
-      LIBRARY DESTINATION ${OPENCV_LIB_INSTALL_PATH} COMPONENT libs NAMELINK_SKIP
-      ARCHIVE DESTINATION ${OPENCV_LIB_ARCHIVE_INSTALL_PATH} COMPONENT dev
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT libs
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libs NAMELINK_SKIP
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT dev
       )
   endif()
   if("${_target_type}" STREQUAL "SHARED_LIBRARY")

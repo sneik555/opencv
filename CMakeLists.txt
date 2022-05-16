@@ -14,7 +14,7 @@ FATAL: In-source builds are not allowed.
 ")
 endif()
 
-
+include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 include(cmake/OpenCVMinDepVersions.cmake)
 
 if(CMAKE_SYSTEM_NAME MATCHES WindowsPhone OR CMAKE_SYSTEM_NAME MATCHES WindowsStore)

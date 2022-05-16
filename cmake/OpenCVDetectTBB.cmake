@@ -19,7 +19,7 @@
 #   - "tbb" target exists and added to OPENCV_LINKER_LIBS
 
 function(ocv_tbb_cmake_guess _found)
-    find_package(TBB QUIET COMPONENTS tbb PATHS "$ENV{TBBROOT}/cmake" "$ENV{TBBROOT}/lib/cmake/tbb")
+    find_package(tbb REQUIRED CONFIG)
     if(TBB_FOUND)
       if(NOT TARGET TBB::tbb)
         message(WARNING "No TBB::tbb target found!")

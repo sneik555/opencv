@@ -1,7 +1,12 @@
 if(APPLE)
   set(HAVE_AVFOUNDATION TRUE)
   if(IOS)
-    set(libs "-framework AVFoundation" "-framework QuartzCore")
+    set(libs
+      "-framework AVFoundation"
+      "-framework QuartzCore"
+      "-framework CoreFoundation"
+      "-framework Foundation"
+      )
   else()
     set(libs
       "-framework Cocoa"

@@ -1334,7 +1334,7 @@ function(ocv_install_3rdparty_licenses library)
     get_filename_component(name "${filename}" NAME)
     install(
       FILES "${filepath}"
-      DESTINATION "${OPENCV_LICENSES_INSTALL_PATH}"
+      DESTINATION "licenses"
       COMPONENT licenses
       RENAME "${library}-${name}"
     )
@@ -1561,10 +1561,6 @@ function(ocv_add_library target)
       FRAMEWORK TRUE
       MACOSX_FRAMEWORK_IDENTIFIER org.opencv
       MACOSX_FRAMEWORK_INFO_PLIST ${OPENCV_APPLE_INFO_PLIST}
-      # "current version" in semantic format in Mach-O binary file
-      VERSION ${OPENCV_LIBVERSION}
-      # "compatibility version" in semantic format in Mach-O binary file
-      SOVERSION ${OPENCV_LIBVERSION}
       INSTALL_RPATH ""
       INSTALL_NAME_DIR "@rpath"
       BUILD_WITH_INSTALL_RPATH 1

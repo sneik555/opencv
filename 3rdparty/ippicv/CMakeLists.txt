@@ -40,6 +40,13 @@ if(ENABLE_SOLUTION_FOLDERS)
   set_target_properties(${IPP_IW_LIBRARY} PROPERTIES FOLDER "3rdparty")
 endif()
 
+if(APPLE AND HAVE_OPENMP)
+  # OpenMP is probably installed externally, eg. using 'brew install libomp'.
+  # Then, the flags set in OpenCVFindFrameworks.cmake are not enough.
+  # The proper way in CMake 3.12+ is to do this:
+  target_link_libraries(${IPP_IW_LIBRARY} PRIVATE OpenMP::OpenMP_CXX)
+endif()
+
 if(NOT BUILD_SHARED_LIBS)
   ocv_install_target(${IPP_IW_LIBRARY} EXPORT OpenCVModules ARCHIVE DESTINATION ${OPENCV_3P_LIB_INSTALL_PATH} COMPONENT dev OPTIONAL)
 endif()

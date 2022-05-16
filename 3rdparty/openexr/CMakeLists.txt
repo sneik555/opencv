@@ -127,7 +127,7 @@ if(MSVC AND CV_ICC)
 endif()
 
 add_library(IlmImf STATIC ${OPENCV_3RDPARTY_EXCLUDE_FROM_ALL} ${lib_hdrs} ${lib_srcs})
-target_link_libraries(IlmImf ${ZLIB_LIBRARIES})
+target_link_libraries(IlmImf zlib::zlib)
 
 set_target_properties(IlmImf
     PROPERTIES
