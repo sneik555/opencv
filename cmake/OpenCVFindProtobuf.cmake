@@ -31,26 +31,9 @@ if(BUILD_PROTOBUF)
   set(HAVE_PROTOBUF TRUE)
 else()
   unset(Protobuf_VERSION CACHE)
-  find_package(Protobuf QUIET)
+  find_package(protobuf REQUIRED CONFIG)
 
-  # Backwards compatibility
-  # Define camel case versions of input variables
-  foreach(UPPER
-      PROTOBUF_FOUND
-      PROTOBUF_LIBRARY
-      PROTOBUF_INCLUDE_DIR
-      PROTOBUF_VERSION
-      )
-      if (DEFINED ${UPPER})
-          string(REPLACE "PROTOBUF_" "Protobuf_" Camel ${UPPER})
-          if (NOT DEFINED ${Camel})
-              set(${Camel} ${${UPPER}})
-          endif()
-      endif()
-  endforeach()
-  # end of compatibility block
-
-  if(Protobuf_FOUND)
+  if(protobuf_FOUND)
     if(TARGET protobuf::libprotobuf)
       set(Protobuf_LIBRARIES "protobuf::libprotobuf")
     else()
